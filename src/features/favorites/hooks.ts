@@ -33,7 +33,7 @@ export const useFavoriteMovies = () => {
         return updated;
       });
 
-      toast.success("Movie added to favorites");
+      toast.success("Success Add to Favorites");
     } catch {
       toast.error("Error adding movie to favorites");
     }
