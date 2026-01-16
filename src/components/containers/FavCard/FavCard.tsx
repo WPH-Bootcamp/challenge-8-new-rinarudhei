@@ -65,7 +65,7 @@ const FavCard: React.FC<FavCardProps> = ({
                 <PlayButton
                   data={dataVideo}
                   isPending={isPending}
-                  maskId="play-button-1"
+                  maskId={`play-fav-card-${dataVideo.id}2`}
                 ></PlayButton>
               )}
 
@@ -108,7 +108,7 @@ const FavCard: React.FC<FavCardProps> = ({
             <PlayButton
               data={dataVideo}
               isPending={isPending}
-              maskId="play-button-1"
+              maskId={`play-fav-card-${dataVideo.id}1`}
             ></PlayButton>
           )}
         <div className="inline lg:hidden">

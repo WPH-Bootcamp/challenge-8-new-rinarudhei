@@ -6,24 +6,17 @@ import Footer from "../components/containers/Footer";
 import LoadingSpinner from "../components/containers/LoadingSpinner";
 import ErrorMessage from "../components/containers/ErrorMessage";
 import { useSearchParams } from "react-router-dom";
+import NoMovies from "../components/containers/NoMovies";
 
 const SearchedPage: React.FC = () => {
   const imageBase = import.meta.env.VITE_IMAGE_BASE_URL;
   const [urlSearchParam] = useSearchParams();
 
-  const {
-    data,
-    error,
-    isError,
-    isFetching,
-    isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage,
-    status,
-  } = useFindInfiniteMovies({
-    query: urlSearchParam.get("q") ?? "",
-    page: 1,
-  });
+  const { data, error, isError, isFetching, isFetchingNextPage, status } =
+    useFindInfiniteMovies({
+      query: urlSearchParam.get("q") ?? "",
+      page: 1,
+    });
 
   if (status === "pending" || (isFetching && !isFetchingNextPage)) {
     return <LoadingSpinner></LoadingSpinner>;
@@ -42,19 +35,23 @@ const SearchedPage: React.FC = () => {
       <main className="min-w-98.25 md:max-w-4xl lg:max-w-7xl  xl:max-w-360 h-max flex flex-col pt-6 pb-10 px-4 md:pt-8 md:pb-12 md:px-6 lg:pt-0 lg:pb-0 lg:px-0 mx-auto  items-center gap-8 md:gap-10 lg:gap-11 xl:gap-12 lg:mt-14 xl:mt-16">
         {data?.pages.map((page, index) => (
           <React.Fragment key={index}>
-            {page.results
-              .filter((m) => m.poster_path)
-              .sort((a, b) => b.popularity - a.popularity)
-              .map((movie) => (
-                <FavCard
-                  key={movie.id}
-                  id={movie.id}
-                  imagePath={imageBase + "/w200" + movie.poster_path}
-                  overview={movie.overview}
-                  rating={movie.vote_average.toFixed(1)}
-                  title={movie.title}
-                ></FavCard>
-              ))}
+            {page.results.length > 0 ? (
+              page.results
+                .filter((m) => m.poster_path)
+                .sort((a, b) => b.popularity - a.popularity)
+                .map((movie) => (
+                  <FavCard
+                    key={movie.id}
+                    id={movie.id}
+                    imagePath={imageBase + "/w200" + movie.poster_path}
+                    overview={movie.overview}
+                    rating={movie.vote_average.toFixed(1)}
+                    title={movie.title}
+                  ></FavCard>
+                ))
+            ) : (
+              <NoMovies></NoMovies>
+            )}
           </React.Fragment>
         ))}
         {/* {hasNextPage && ( */}
