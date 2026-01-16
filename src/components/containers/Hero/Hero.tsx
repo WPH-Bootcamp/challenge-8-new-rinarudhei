@@ -19,13 +19,14 @@ const Hero: React.FC<HeroProps> = ({
 }) => {
   const { data, isPending, isError } = useGetVideos({ movieId });
   return (
-    <section className="h-82 xl:h-202.5">
+    <section className="h-82 xl:h-202.5 relative">
+      <div className="absolute bottom-10 h-55.25 w-full sm:bottom-0 md:-bottom-32 lg:-bottom-85 xl:bottom-40 lg:h-80 xl:h-102.5 bg-linear-to-t from-black from-20% xl:from-10% to-black/0 z-10"></div>
       <img
         alt="movie backdrop image"
         src={imageBase + "/original" + backdropPath}
-        className="h-98.25 w-full sm:h-120 md:h-160 lg:h-screen object-cover absolute -top-16 xl:-top-22.5"
+        className="h-86.25 w-full sm:h-90 md:h-120 lg:h-180 xl:h-180 object-cover absolute -top-16 xl:-top-22.5"
       />
-      <div className="absolute sm:w-120 xl:w-158.75 h-77.5 sm:h-54 xl:h-66.5 top-39.75 sm:top-60 md:top-65 lg:top-74.5 left-4 sm:left-16 lg:left-30 xl:left-35 flex flex-col w-90.25 md:w-120 lg:w-158 gap-6 lg:gap-4">
+      <div className="absolute sm:w-120 xl:w-158.75 h-77.5 sm:h-54 xl:h-66.5 top-39.75 sm:top-60 md:top-65 lg:top-74.5 left-4 sm:left-16 lg:left-30 xl:left-35 flex flex-col w-90.25 md:w-120 lg:w-158 gap-6 lg:gap-4 z-48">
         <div className="h-full w-full gap-1.5 lg:gap-4 flex flex-col">
           <h1 className="h-9 xl:h-15 font-bold text-2xl sm:text-3xl lg:text-4xl xl:text-5xl leading-9 lg:leading-15 lg:tracking-tight text-[#FDFDFD]">
             {title}
