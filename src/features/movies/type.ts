@@ -54,5 +54,6 @@ type Genre = {
 };
 
 export interface IParamsFindMoviesByQuery {
-  urlEncodedQuery: string;
+  query: string;
+  page: number;
 }

@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import MovieAppSvg from "../../svgs/MovieAppSvg";
 import MagnifierSvg from "../../svgs/MagnifierSvg";
 import HamburgerSvg from "../../svgs/HamburgerSvg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Nav: React.FC = () => {
   const [blurStyle, setBlurStyle] = useState("");
+  const [searchText, setSearchText] = useState("");
+  const navigate = useNavigate();
   const header = document.getElementById("nav-header");
   const handleScroll = () => {
     const scrollThreshold = 100;
@@ -17,6 +19,12 @@ const Nav: React.FC = () => {
     }
   };
   window.addEventListener("scroll", handleScroll);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    navigate(`/search/?q=${encodeURIComponent(searchText.trim())}`);
+    setSearchText("");
+  };
 
   return (
     <header
@@ -33,12 +41,21 @@ const Nav: React.FC = () => {
           <Link to="/favorites">Favorites</Link>
         </div>
       </div>
-      <div className="w-60.75 md:h-12 xl:h-14 hidden md:flex justify-start items-center rounded-2xl border py-2 px-4 gap-2 bg-[#0a0d12]/60 border-[#252b37]">
-        <MagnifierSvg strokeColor="stroke-[#717680]"></MagnifierSvg>
-        <p className="w-fit text-center my-auto text-base leading-7.5  text-[#717680]">
-          Search Movie
-        </p>
-      </div>
+      <form
+        onSubmit={handleSubmit}
+        className="w-60.75 md:h-12 xl:h-14 hidden md:flex justify-start items-center rounded-2xl border py-2 px-4 gap-2 bg-[#0a0d12]/60 border-[#252b37]"
+      >
+        <button type="submit" aria-label="Search button">
+          <MagnifierSvg strokeColor="stroke-[#717680]"></MagnifierSvg>
+        </button>
+        <input
+          type="text"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          className="w-44 text-start my-auto text-base leading-7.5  text-[#717680] focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500 overflow-x-scroll rounded-md"
+          placeholder="Search Movie"
+        />
+      </form>
       <div className="w-18 h-6 flex justify-between items-center md:hidden">
         <MagnifierSvg strokeColor="stroke-[#FDFDFD]"></MagnifierSvg>
         <HamburgerSvg></HamburgerSvg>

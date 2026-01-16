@@ -11,7 +11,12 @@ import {
   useInfiniteQuery,
   useQuery,
 } from "@tanstack/react-query";
-import { getMovieDetail, getNewMovies, getPopularMovies } from "./api";
+import {
+  findMoviesByQuery,
+  getMovieDetail,
+  getNewMovies,
+  getPopularMovies,
+} from "./api";
 
 export const useGetInfiniteMovies = (params: IParamsGetMovies) => {
   return useInfiniteQuery<IDataMovies, AxiosError>({
@@ -32,7 +37,7 @@ export const useFindInfiniteMovies = (params: IParamsFindMoviesByQuery) => {
     initialPageParam: 1,
     queryKey: ["infinity-search", params],
     queryFn: ({ pageParam }) =>
-      getNewMovies({ ...params, page: pageParam as number }),
+      findMoviesByQuery({ ...params, page: pageParam as number }),
     getNextPageParam: (responseData) => {
       if (responseData.page < responseData.total_pages)
         return responseData.page + 1;

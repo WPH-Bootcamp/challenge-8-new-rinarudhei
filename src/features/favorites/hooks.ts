@@ -67,19 +67,12 @@ export const useFavoriteMovies = () => {
 
   const toggleFavorite = useCallback(
     (favMovie: FavMovie) => {
-      console.log("CHECK");
-      console.log(favMovie.id);
-      console.log(favMovie.title);
       try {
         if (isFavorited(favMovie.id)) {
-          console.log("removing favorites");
           removeFavMovie(favMovie.id);
-          console.log("after remove check: " + isFavorited(favMovie.id));
           return;
         } else {
-          console.log("adding favorites");
           addFavMovie(favMovie);
-          console.log("after add check: " + isFavorited(favMovie.id));
           return;
         }
       } catch (e) {

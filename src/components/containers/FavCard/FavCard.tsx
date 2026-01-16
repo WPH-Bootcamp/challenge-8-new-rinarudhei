@@ -77,7 +77,7 @@ const FavCard: React.FC<FavCardProps> = ({
                   id: id,
                   posterPath: imagePath,
                   title: title,
-                  trailerKey: dataVideo.results[0].key,
+                  trailerKey: dataVideo?.results[0]?.key,
                   overview: overview,
                   rating: rating,
                 }}
@@ -93,7 +93,7 @@ const FavCard: React.FC<FavCardProps> = ({
               id: id,
               posterPath: imagePath,
               title: title,
-              trailerKey: dataVideo.results[0].key,
+              trailerKey: dataVideo?.results[0]?.key,
               overview: overview,
               rating: rating,
             }}
@@ -119,7 +119,7 @@ const FavCard: React.FC<FavCardProps> = ({
               id: id,
               posterPath: imagePath,
               title: title,
-              trailerKey: dataVideo.results[0].key,
+              trailerKey: dataVideo?.results[0]?.key,
               overview: overview,
               rating: rating,
             }}
@@ -134,7 +134,7 @@ const FavCard: React.FC<FavCardProps> = ({
             id: id,
             posterPath: imagePath,
             title: title,
-            trailerKey: dataVideo.results[0].key,
+            trailerKey: dataVideo?.results[0]?.key,
             overview: overview,
             rating: rating,
           }}

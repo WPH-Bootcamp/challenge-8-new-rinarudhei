@@ -51,20 +51,20 @@ const LatestMovies: React.FC<LatestMoviesProps> = ({
           </React.Fragment>
         ))}
       </div>
-      <div className="absolute z-45 bottom-6 left-0 md:left-0 w-full h-95.75 md:h-105 lg:h-124 bg-linear-to-t from-black from-30% to-black/0 border-none"></div>
-      <button
-        className="z-50 flex h-11 xl:h-13 w-50 xl:w-57.5 p-2 gap-2 border border-[#181d27] bg-[#0a0d12]/60 rounded-full justify-center items-center backdrop-blur-2xl absolute bottom-28.25 xl:bottom-56 left-24.25 sm:left-[calc(50%-80px)] xl:left-151.25 cursor-pointer"
-        onClick={() => fetchNextPage()}
-        disabled={!hasNextPage || isFetching}
-      >
-        <p className="font-semibold text-center text-sm lg:text-base leading-7 lg:leading-7.5 text-[#fdfdfd]">
-          {isFetchingNextPage
-            ? "Loading more..."
-            : hasNextPage
-              ? "Load More"
-              : "Nothing more to load"}
-        </p>
-      </button>
+      {hasNextPage && (
+        <>
+          <div className="absolute z-45 bottom-6 left-0 md:left-0 w-full h-95.75 md:h-105 lg:h-124 bg-linear-to-t from-black from-30% to-black/0 border-none"></div>
+          <button
+            className="z-50 flex h-11 xl:h-13 w-50 xl:w-57.5 p-2 gap-2 border border-[#181d27] bg-[#0a0d12]/60 rounded-full justify-center items-center backdrop-blur-2xl absolute bottom-28.25 xl:bottom-56 left-24.25 sm:left-[calc(50%-80px)] xl:left-151.25 cursor-pointer"
+            onClick={() => fetchNextPage()}
+            disabled={!hasNextPage || isFetching}
+          >
+            <p className="font-semibold text-center text-sm lg:text-base leading-7 lg:leading-7.5 text-[#fdfdfd]">
+              {isFetchingNextPage ? "Loading more..." : "Load More"}
+            </p>
+          </button>
+        </>
+      )}
     </div>
   );
 };

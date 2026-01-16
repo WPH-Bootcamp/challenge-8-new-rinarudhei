@@ -32,14 +32,13 @@ export const getNewMovies = async ({ page, language }: IParamsGetMovies) => {
 };
 
 export const findMoviesByQuery = async ({
-  urlEncodedQuery,
+  query,
 }: IParamsFindMoviesByQuery) => {
   const response = await api.get("/search/movie", {
     params: {
-      query: urlEncodedQuery,
+      query,
     },
   });
-
   return response.data;
 };
 
