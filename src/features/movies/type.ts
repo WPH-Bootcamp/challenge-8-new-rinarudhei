@@ -52,3 +52,7 @@ type Genre = {
   id: number;
   name: string;
 };
+
+export interface IParamsFindMoviesByQuery {
+  urlEncodedQuery: string;
+}

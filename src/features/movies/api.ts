@@ -1,5 +1,9 @@
 import { api } from "../../lib/api";
-import type { IParamsGetMovieDetail, IParamsGetMovies } from "./type";
+import type {
+  IParamsFindMoviesByQuery,
+  IParamsGetMovieDetail,
+  IParamsGetMovies,
+} from "./type";
 
 export const getPopularMovies = async ({
   page,
@@ -21,6 +25,18 @@ export const getNewMovies = async ({ page, language }: IParamsGetMovies) => {
       language,
       page,
       sortBy: "primary_release_date.desc",
+    },
+  });
+
+  return response.data;
+};
+
+export const findMoviesByQuery = async ({
+  urlEncodedQuery,
+}: IParamsFindMoviesByQuery) => {
+  const response = await api.get("/search/movie", {
+    params: {
+      query: urlEncodedQuery,
     },
   });
 
