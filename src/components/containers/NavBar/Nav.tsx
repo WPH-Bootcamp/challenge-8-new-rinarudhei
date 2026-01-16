@@ -5,6 +5,10 @@ import HamburgerSvg from "../../svgs/HamburgerSvg";
 import { Link, useNavigate } from "react-router-dom";
 
 const Nav: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   const [blurStyle, setBlurStyle] = useState("");
   const [searchText, setSearchText] = useState("");
   const navigate = useNavigate();
@@ -26,6 +30,16 @@ const Nav: React.FC = () => {
     setSearchText("");
   };
 
+  const handleClicked = () => {
+    const form = document.getElementById("form") as HTMLFormElement;
+    const magnifier = document.getElementById("magnifier") as HTMLElement;
+
+    form.classList.toggle("hidden");
+    form.classList.toggle("flex");
+    form.classList.toggle("focus");
+    magnifier.classList.toggle("hidden");
+  };
+
   return (
     <header
       id="nav-header"
@@ -34,7 +48,7 @@ const Nav: React.FC = () => {
         blurStyle
       }
     >
-      <div className="flex md:gap-12 xl:gap-20">
+      <div className="flex md:gap-12 xl:gap-20 z-50">
         <MovieAppSvg></MovieAppSvg>
         <div className="hidden md:flex md:items-center gap-12 text-white text-base leading-7.5">
           <Link to="/">Home</Link>
@@ -42,6 +56,7 @@ const Nav: React.FC = () => {
         </div>
       </div>
       <form
+        id="form"
         onSubmit={handleSubmit}
         className="w-60.75 md:h-12 xl:h-14 hidden md:flex justify-start items-center rounded-2xl border py-2 px-4 gap-2 bg-[#0a0d12]/60 border-[#252b37]"
       >
@@ -56,10 +71,51 @@ const Nav: React.FC = () => {
           placeholder="Search Movie"
         />
       </form>
-      <div className="w-18 h-6 flex justify-between items-center md:hidden">
-        <MagnifierSvg strokeColor="stroke-[#FDFDFD]"></MagnifierSvg>
-        <HamburgerSvg></HamburgerSvg>
+      <div
+        id="magnifier"
+        className="w-18 h-6 flex justify-between items-center md:hidden"
+      >
+        <button onClick={handleClicked}>
+          <MagnifierSvg strokeColor="stroke-[#FDFDFD]"></MagnifierSvg>
+        </button>
+        {!isOpen ? (
+          <button onClick={toggleMenu}>
+            <HamburgerSvg></HamburgerSvg>
+          </button>
+        ) : (
+          <button onClick={toggleMenu} className="z-50">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 2L20 20M20 2L2 20"
+                stroke="white"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+        )}
       </div>
+      {isOpen && (
+        <div
+          className="absolute w-full h-screen left-0 top-0 bg-black flex flex-col items-center  z-49"
+          aria-expand={isOpen}
+        >
+          <ul className="w-90.25 md:hidden flex flex-col gap-4 text-[#ffffff] absolute top-22 left-4 text-base leading-7.5">
+            <Link to="/" className="p-2 gap-2" onClick={toggleMenu}>
+              Home
+            </Link>
+            <Link to="/favorites" className="p-2 gap-2" onClick={toggleMenu}>
+              Favorites
+            </Link>
+          </ul>
+        </div>
+      )}
     </header>
   );
 };

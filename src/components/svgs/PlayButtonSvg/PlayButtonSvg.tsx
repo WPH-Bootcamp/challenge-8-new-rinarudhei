@@ -4,7 +4,7 @@ type PlayButtonSvgProp = {
 const PlayButtonSvg: React.FC<PlayButtonSvgProp> = ({ maskId }) => {
   return (
     <svg
-      className="w-4.5 h-4.5 lg:w-6 lg:h-6 z-50"
+      className="w-4.5 h-4.5 lg:w-6 lg:h-6 z-48"
       viewBox="0 0 18 18"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
