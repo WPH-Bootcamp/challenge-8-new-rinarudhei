@@ -60,7 +60,7 @@ const Homepage: React.FC = () => {
   return (
     <>
       <Nav></Nav>
-      <div className="min-w-98.25 max-w-360 h-max mx-auto relative">
+      <main className="min-w-98.25 max-w-360 h-max mx-auto relative">
         <Hero
           title={dataMovies.results[0].title}
           overview={dataMovies.results[0].overview}
@@ -82,7 +82,7 @@ const Homepage: React.FC = () => {
             fetchNextPage={fetchNextPage}
           ></LatestMovies>
         </div>
-      </div>
+      </main>
       <Footer></Footer>
     </>
   );

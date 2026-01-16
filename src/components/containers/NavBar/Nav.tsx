@@ -29,10 +29,8 @@ const Nav: React.FC = () => {
       <div className="flex md:gap-12 xl:gap-20">
         <MovieAppSvg></MovieAppSvg>
         <div className="hidden md:flex md:items-center gap-12 text-white text-base leading-7.5">
-          <Link to="/">
-            <div>Home</div>
-          </Link>
-          <div>Favorites</div>
+          <Link to="/">Home</Link>
+          <Link to="/favorites">Favorites</Link>
         </div>
       </div>
       <div className="w-60.75 md:h-12 xl:h-14 hidden md:flex justify-start items-center rounded-2xl border py-2 px-4 gap-2 bg-[#0a0d12]/60 border-[#252b37]">

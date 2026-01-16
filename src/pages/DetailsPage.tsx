@@ -13,6 +13,7 @@ import FavoriteButton from "../components/ui/FavoriteButton";
 import MovieMetrics from "../components/containers/MovieMetrics/MovieMetrics";
 import { useGetCasts } from "../features/casts/hooks";
 import CastCard from "../components/containers/CastCard";
+import { useFavoriteMovies } from "../features/favorites/hooks";
 
 const DetailsPage = () => {
   const imageBase = import.meta.env.VITE_IMAGE_BASE_URL;
@@ -21,7 +22,7 @@ const DetailsPage = () => {
   if (params.id) {
     paramsId = +params.id;
   }
-
+  const { isFavorited, toggleFavorite } = useFavoriteMovies();
   const { data, isPending, isError, error } = useGetDetail({
     movieId: +paramsId,
   });
@@ -74,7 +75,7 @@ const DetailsPage = () => {
             />
             <div className="flex flex-col gap-6 border">
               <div className="flex flex-col gap-4 z-50 h-fit">
-                <h1 className="font-bold lg:text-4xl xl:text-[40px] lg:leading-9 leading-14 tracking-tight lg:w-180 xl:w-217 h-14 text-[#FDFDFD]">
+                <h1 className="font-bold lg:text-4xl xl:text-[40px] lg:leading-9 leading-14 tracking-tight lg:w-180 xl:w-217 text-[#FDFDFD]">
                   {data.title}
                 </h1>
                 <div className="gap-2 flex items-center">
@@ -94,7 +95,18 @@ const DetailsPage = () => {
                         maskId="play-button-1"
                       ></PlayButton>
                     )}
-                  <FavoriteButton></FavoriteButton>
+                  <FavoriteButton
+                    isFavorite={isFavorited(paramsId)}
+                    toggleFavorite={toggleFavorite}
+                    favMovieData={{
+                      id: paramsId,
+                      posterPath: data.poster_path,
+                      title: data.title,
+                      trailerKey: dataVideo.results[0].key,
+                      overview: data.overview,
+                      rating: data.vote_average.toFixed(1),
+                    }}
+                  ></FavoriteButton>
                 </div>
                 <div className="flex gap-3 lg:gap-5 items-center justify-start w-90.25 lg:w-180 xl:w-fit mx-auto">
                   <MovieMetrics
@@ -141,14 +153,17 @@ const DetailsPage = () => {
               Cast & Crew
             </h2>
             <div className="grid grid-cols-3 gap-10">
-              {dataCasts.cast.slice(0, 5).map((c, i) => (
-                <CastCard
-                  key={i}
-                  sourceImage={imageBase + "/w200" + c.profile_path}
-                  name={c.name}
-                  character={c.character}
-                ></CastCard>
-              ))}
+              {dataCasts.cast
+                .filter((c) => c.profile_path)
+                .slice(0, 5)
+                .map((c, i) => (
+                  <CastCard
+                    key={i}
+                    sourceImage={imageBase + "/w200" + c.profile_path}
+                    name={c.name}
+                    character={c.character}
+                  ></CastCard>
+                ))}
             </div>
           </div>
         </div>
@@ -181,7 +196,18 @@ const DetailsPage = () => {
                   maskId="play-button-2"
                 ></PlayButton>
               )}
-            <FavoriteButton></FavoriteButton>
+            <FavoriteButton
+              isFavorite={isFavorited(paramsId)}
+              toggleFavorite={toggleFavorite}
+              favMovieData={{
+                id: paramsId,
+                posterPath: data.poster_path,
+                title: data.title,
+                trailerKey: dataVideo.results[0].key,
+                overview: data.overview,
+                rating: data.vote_average.toFixed(1),
+              }}
+            ></FavoriteButton>
           </div>
           <div className="flex gap-3 items-center justify-between w-90.25 md:w-136 mx-auto">
             <MovieMetrics
